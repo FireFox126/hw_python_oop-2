@@ -1,14 +1,23 @@
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
+    def __init__(self, training_type,
+                 duration, distance,
+                 speed, calories) -> None:
+        self.training_type = training_type
+        self.duartion = duration
+        self.distance = distance
+        self.speed = speed
+        self.calories = calories
+
     def show_info_message(self):
-        return ('Тип тренировки,', f'{self.training_type}'
-                'Длительность:'
-                f'{self.duration}' 'ч.'
-                'Дистанция:' f'{self.distance}' 'км'
-                'Ср.скорость:'
-                f'{self.speed}' 'км / ч'
-                'Потрачено ккал:' f'{self.calories}''.')
+        return ('Тип тренировки: ' f'{self.training_type};'
+                ' Длительность: '
+                f'{self.duration} ч.;'
+                ' Дистанция: ' f'{self.get_distance()} км;'
+                ' Ср.скорость: '
+                f'{self.get_mean_speed()} км/ч;'
+                ' Потрачено ккал: ' f'{self.get_spent_calories()}.')
 
 
 class Training:
@@ -42,13 +51,8 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        return ('Тип тренировки: ' f'{self.training_type};'
-                ' Длительность: '
-                f'{self.duration} ч.;'
-                ' Дистанция: ' f'{self.get_distance()} км;'
-                ' Ср.скорость: '
-                f'{self.get_mean_speed()} км/ч;'
-                ' Потрачено ккал: ' f'{self.get_spent_calories()}.')
+        info = InfoMessage.show_info_message(self)
+        return info
 
 
 class Running(Training):
@@ -135,8 +139,7 @@ def read_package(workout_type: str, data: list) -> Training:
 
 def main(training: Training) -> None:
     """Главная функция."""
-    info = training.show_training_info()
-    print(info)
+    print(training.show_training_info())
 
 
 if __name__ == '__main__':
