@@ -1,23 +1,26 @@
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
-    def __init__(self, training_type,
-                 duration, distance,
-                 speed, calories) -> None:
+    def __init__(self, training_type: str,
+                 duration: float,
+                 distance: float,
+                 speed: float,
+                 calories: float,
+                 ) -> None:
         self.training_type = training_type
-        self.duartion = duration
         self.distance = distance
         self.speed = speed
         self.calories = calories
+        self.duration = duration
 
-    def show_info_message(self):
+    def get_message(self) -> str:
         return ('Тип тренировки: ' f'{self.training_type};'
                 ' Длительность: '
                 f'{self.duration} ч.;'
-                ' Дистанция: ' f'{self.get_distance()} км;'
+                ' Дистанция: ' f'{self.distance} км;'
                 ' Ср.скорость: '
-                f'{self.get_mean_speed()} км/ч;'
-                ' Потрачено ккал: ' f'{self.get_spent_calories()}.')
+                f'{self.speed} км/ч;'
+                ' Потрачено ккал: ' f'{self.calories}.')
 
 
 class Training:
@@ -51,8 +54,12 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        info = InfoMessage.show_info_message(self)
-        return info
+        info_message = InfoMessage(self.__class__.__name__,
+                                   self.duration,
+                                   self.get_distance(),
+                                   self.get_mean_speed(),
+                                   self.get_spent_calories())
+        return info_message
 
 
 class Running(Training):
@@ -101,6 +108,7 @@ class Swimming(Training):
     """Тренировка: плавание."""
     cf_sw_1 = 1.1
     cf_sw_2 = 2
+    LEN_STEP = 1.38
 
     def __init__(self,
                  action: int,
@@ -112,7 +120,6 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
         self.training_type = 'SWM'
-        self.LEN_STEP = 1.38
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
@@ -139,7 +146,8 @@ def read_package(workout_type: str, data: list) -> Training:
 
 def main(training: Training) -> None:
     """Главная функция."""
-    print(training.show_training_info())
+    info = training.show_training_info()
+    print(info.get_message())
 
 
 if __name__ == '__main__':
