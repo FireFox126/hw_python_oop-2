@@ -1,20 +1,20 @@
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
-    def __init__(self, training_type: str,
+    def __init__(self, TRAINING_TYPE: str,
                  duration: float,
                  distance: float,
                  speed: float,
                  calories: float,
                  ) -> None:
-        self.training_type = training_type
+        self.TRAINING_TYPE = TRAINING_TYPE
         self.distance = distance
         self.speed = speed
         self.calories = calories
         self.duration = duration
 
     def get_message(self) -> str:
-        return (f'Тип тренировки: {self.training_type}; '
+        return (f'Тип тренировки: {self.TRAINING_TYPE}; '
                 f'Длительность: {self.duration:.3f} ч.; '
                 f'Дистанция: {self.distance:.3f} км; '
                 f'Ср. скорость: {self.speed:.3f} км/ч; '
@@ -25,7 +25,7 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP = 0.65
     M_IN_KM = 1000
-    training_type = ''
+    TRAINING_TYPE = ''
 
     def __init__(self,
                  action: int,
@@ -65,13 +65,6 @@ class Running(Training):
     CF_RUN_1 = 18
     CF_RUN_2 = 20
     TRAINING_TYPE = 'RUN'
-
-    def __init__(self,
-                 action: int,
-                 duration: float,
-                 weight: float,
-                 ) -> None:
-        super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
         cal = self.CF_RUN_1 * self.get_mean_speed() - self.CF_RUN_2
@@ -133,8 +126,8 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    dict = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
-    return dict[workout_type](*data)
+    type_dict = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
+    return type_dict[workout_type](*data)
 
 
 def main(training: Training) -> None:
