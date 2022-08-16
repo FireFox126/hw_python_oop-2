@@ -65,6 +65,7 @@ class Training:
         return info_message
 
 # Класс бега который наследует класс тренировки
+
 class Running(Training):
     # добавляются новые константы, старые из Training наследуются
     """Тренировка: бег."""
