@@ -64,9 +64,7 @@ class Training:
                                    self.get_spent_calories())
         return info_message
 
-# Класс бега который наследует класс тренировки
-
-class Running(Training):
+class Running(Training): # Класс бега который наследует класс тренировки
     # добавляются новые константы, старые из Training наследуются
     """Тренировка: бег."""
     CF_RUN_1 = 18
