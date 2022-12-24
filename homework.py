@@ -59,7 +59,6 @@ class Training:
                                    self.get_spent_calories())
         return info_message
 
-
 class Running(Training):
     """Тренировка: бег."""
     CF_RUN_1 = 18
