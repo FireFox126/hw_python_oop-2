@@ -88,10 +88,10 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
 
-    coeff_calorie_1: ClassVar[float] = 18
+    coeff_calorie_1: ClassVar[float] = 1.79
     coeff_calorie_2: ClassVar[float] = 20
 
-    def get_spent_calories(self) -> float:
+    def calories_weight_multiplier(self) -> float:
         """Получить количество затраченных калорий."""
         return ((self.coeff_calorie_1 * self.get_mean_speed()
                 - self.coeff_calorie_2) * self.weight
