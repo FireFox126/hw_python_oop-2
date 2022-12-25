@@ -45,7 +45,7 @@ class Training:
     # константа для перевода значений из метров в километры.
     M_IN_KM: ClassVar[float] = 1000
     # константа для перевода времени.
-    TIME_CONST: ClassVar[float] = 60
+    MIN_IN_H: ClassVar[float] = 60
 
     action: int         # Действие
     duration: float     # Продолжительность
@@ -95,7 +95,7 @@ class Running(Training):
         """Получить количество затраченных калорий."""
         return ((self.coeff_calorie_1 * self.get_mean_speed()
                 - self.coeff_calorie_2) * self.weight
-                / self.M_IN_KM * self.duration * self.TIME_CONST)
+                / self.M_IN_KM * self.duration * self.MIN_IN_H)
 
 
 @dataclass
@@ -121,7 +121,7 @@ class SportsWalking(Training):
                 + (self.get_mean_speed() ** self.coeff_calorie_3
                     // self.height)
                 * self.coeff_calorie_2 * self.weight)
-                * self.TIME_CONST * self.duration)
+                * self.MIN_IN_H * self.duration)
 
 
 @dataclass
